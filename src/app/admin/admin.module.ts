@@ -8,6 +8,9 @@ import { ResumoContratosComponent } from './acompanhamento/resumo-contratos/resu
 import { FiltrosComponent } from './acompanhamento/filtros/filtros.component';
 import { DetalhamentoContratosComponent } from './acompanhamento/detalhamento-contratos/detalhamento-contratos.component';
 import { GraficosComponent } from './acompanhamento/graficos/graficos.component';
+import { NumberDirective } from '../directives/only-number.directive';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -15,12 +18,15 @@ import { GraficosComponent } from './acompanhamento/graficos/graficos.component'
     ResumoContratosComponent,
     FiltrosComponent,
     DetalhamentoContratosComponent,
-    GraficosComponent
+    GraficosComponent,
+    NumberDirective
   ],
   imports: [
     CommonModule,
     FormsModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    CurrencyMaskModule,
+    NgbModule
   ]
 })
 export class AdminModule { }

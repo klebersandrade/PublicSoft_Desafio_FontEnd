@@ -38,6 +38,7 @@
               "src/assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css",
               "src/assets/bower_components/bootstrap-daterangepicker/daterangepicker.css",
               "src/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
+              "src/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -53,11 +54,17 @@
               "src/assets/bower_components/moment/min/moment.min.js",
               "src/assets/bower_components/bootstrap-daterangepicker/daterangepicker.js",
               "src/assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+              "src/assets/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js",
               "src/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js",
               "src/assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js",
               "src/assets/bower_components/fastclick/lib/fastclick.js",
               "src/assets/dist/js/adminlte.min.js",
-              "src/assets/dist/js/demo.js"
+              "src/assets/dist/js/demo.js",
+              "src/assets/plugins/input-mask/jquery.inputmask.js",
+              "src/assets/plugins/input-mask/jquery.inputmask.date.extensions.js",
+              "src/assets/plugins/input-mask/jquery.inputmask.extensions.js",
+              "src/assets/bower_components/datatables.net/js/jquery.dataTables.min.js",
+              "src/assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"
             ]
           },
           "configurations": {
