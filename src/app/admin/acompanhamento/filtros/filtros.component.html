@@ -1,0 +1,80 @@
+<!-- Filtros -->
+<div class="row">
+    <div class="col-md-12">
+      <div id="boxFiltros" class="box collapsed-box">
+        <div class="box-header with-border">
+          <h3 class="box-title">FILTROS</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <label for="tipoFiltro">Tipo Filtro</label>
+              <select class="form-control" name="tipoFiltro" id="tipoFiltro">
+                <!-- <option *ngFor="let item of list" [value]="item">{{item}}</option> -->
+                <option value="0" selected>Selecione</option>
+                <option value="1">Código</option>
+                <option value="2">Número Contrato</option>
+              </select>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <label for="valorFiltro">Valor Filtro</label>
+              <input type="text" class="form-control" name="valorFiltro" id="valorFiltro">
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <label for="valoresFiltroInicial">Valores (R$) Entre:</label>
+              <input type="text" class="form-control" name="valoresFiltroInicial" id="valoresFiltroInicial">
+              <i class="fa fa-arrows-h iconSmHide" style="position: absolute; top: 60%; left: 98%"></i>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <label for="valoresFiltroFinal">{{'&#160;'}}</label>
+              <input type="text" class="form-control" name="valoresFiltroFinal" id="valoresFiltroFinal">
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <label for="datasFiltroInicial">Datas entre:</label>
+              <input type="text" class="form-control" name="datasFiltroInicial" id="datasFiltroInicial">
+              <i class="fa fa-arrows-h iconSmHide" style="position: absolute; top: 60%; left: 98%"></i>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <label for="datasFiltroFinal">{{'&#160;'}}</label>
+              <input type="text" class="form-control" name="datasFiltroFinal" id="datasFiltroFinal">
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <label for="situacaoFiltro">Situação do Contrato</label>
+              <select class="form-control" name="situacaoFiltro" id="situacaoFiltro" [(ngModel)]="situacao">
+                <!-- <option *ngFor="let item of list" [value]="item">{{item}}</option> -->
+                <option value="0" selected>Selecione</option>
+                <option value="1">Vigente até</option>
+                <option value="2">A vencer nos próximos</option>
+              </select>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="situacao==1">
+              <label for="situacaoVigente">Data</label>
+              <input type="text" class="form-control" name="situacaoVigente" id="situacaoVigente">
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="situacao==2">
+              <label for="situacaoVencimento">Quantidade de dias</label>
+              <input type="text" class="form-control" name="situacaoVencimento" id="situacaoVencimento">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+              <label for="btnLimpar">{{'&#160;'}}</label>
+              <button name="btnLimpar" id="btnLimpar" class="btn btn-default form-control">LIMPAR</button>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-12 pull-right">
+              <label for="btnAplicar">{{'&#160;'}}</label>
+              <button name="btnAplicar" id="btnAplicar" class="btn btn-success form-control">APLICAR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
