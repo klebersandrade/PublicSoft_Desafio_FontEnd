@@ -148,7 +148,36 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
           return parseFloat(data).toLocaleString();
         },
         className: 'dt-body-right'
-      }]
+      }], rowCallback: (row: Node, data: any[] | Contrato, index: number) => {
+        const self = this;
+        // Unbind first in order to avoid any duplicate handler
+        // (see https://github.com/l-lin/angular-datatables/issues/87)
+        $('td', row).unbind('click');
+        $('td', row).bind('click', () => {
+          (data as Contrato).chk = !(data as Contrato).chk;
+
+          this.dtElement.dtInstance.then((dado) => {
+            dado.data().each((contrato: Contrato, indice) => {
+              if (indice !== index) {
+                contrato.chk = false;
+              }
+            });
+          });
+
+          if ((data as Contrato).chk) {
+            $('#dtContratos > tbody  > tr').each((tr) => {
+              const linha = $('#dtContratos > tbody  > tr')[tr];
+              $(linha).css('background-color', '');
+            });
+            this.contratoService.setLinhaSelecionada((data as Contrato));
+            $(row).css('background-color', '#a3c3d6');
+          } else {
+            this.contratoService.setLinhaSelecionada(null);
+            $(row).css('background-color', '');
+          }
+        });
+        return row;
+      }
     };
     this.subscriptionFiltro = this.contratoService.filtro.subscribe(
       (ft: Filtro) => {

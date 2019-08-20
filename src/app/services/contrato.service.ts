@@ -8,6 +8,7 @@ import { Filtro } from './../models/filtro';
 })
 export class ContratoService {
   @Output() filtro = new EventEmitter<Filtro>();
+  @Output() rowSelect = new EventEmitter<Contrato>();
   contratosUrl = 'assets/contratos.json';
   constructor(
     private http: HttpClient
@@ -21,5 +22,9 @@ export class ContratoService {
 
   setFiltro(filtro: Filtro) {
     this.filtro.emit(filtro);
+  }
+
+  setLinhaSelecionada(contrato: Contrato) {
+    this.rowSelect.emit(contrato);
   }
 }

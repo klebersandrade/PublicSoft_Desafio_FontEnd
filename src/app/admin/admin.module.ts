@@ -13,6 +13,8 @@ import { GraficosComponent } from './acompanhamento/graficos/graficos.component'
 import { NumberDirective } from '../directives/only-number.directive';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChartsModule } from 'ng2-charts';
+import 'chartjs-plugin-labels';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdminRoutingModule,
     CurrencyMaskModule,
     NgbModule,
-    DataTablesModule
+    DataTablesModule,
+    ChartsModule
   ]
 })
 export class AdminModule { }

@@ -63,7 +63,8 @@
               "src/assets/plugins/input-mask/jquery.inputmask.js",
               "src/assets/plugins/input-mask/jquery.inputmask.date.extensions.js",
               "src/assets/plugins/input-mask/jquery.inputmask.extensions.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/chart.js/dist/chart.js"
             ]
           },
           "configurations": {

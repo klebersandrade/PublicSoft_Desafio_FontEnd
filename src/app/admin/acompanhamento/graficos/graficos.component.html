@@ -1,79 +1,103 @@
 <!-- Graficos -->
 <div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-12">
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <!-- DONUT CHART -->
-              <div class="box box-gray">
-                <div class="box-header with-border bg-gray" style="text-align: center">
-                  <h3 class="box-title">Valores</h3>
-                </div>
-                <div class="box-body bg-gray-light">
-                  <canvas id="pieChart" style="height:250px"></canvas>
-                </div>
-                <div class="box-footer bg-gray">
-
-                </div>
-              </div>
-              <!-- /.box -->
-            </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <!-- DONUT CHART -->
+        <div class="box box-gray">
+          <div class="box-header with-border bg-gray" style="text-align: center">
+            <h3 class="box-title">Valores</h3>
           </div>
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <!-- DONUT CHART -->
-              <div class="box box-gray">
-                <div class="box-header with-border bg-gray" style="text-align: center">
-                  <h3 class="box-title">Períodos</h3>
-                </div>
-                <div class="box-body bg-gray-light">
-                  <canvas id="pieChart" style="height:250px"></canvas>
-                </div>
-                <div class="box-footer bg-gray">
-
-                </div>
+          <div class="box-body bg-gray-light">
+            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+              [options]="doughnutChartOptions"></canvas>
+          </div>
+          <div class="box-footer boxFooter">
+            <span style="font-weight: bold; font-size: 105%">Atual: R$ <span
+                style="font-size: 140%">{{valorTotal | number}}</span></span>
+          </div>
+        </div>
+        <!-- /.box -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <!-- DONUT CHART -->
+        <div class="box box-gray">
+          <div class="box-header with-border bg-gray" style="text-align: center">
+            <h3 class="box-title">Períodos</h3>
+          </div>
+          <div class="box-body bg-gray-light"
+            style="padding-left: 50px; padding-right: 50px; text-align: left; padding-top: 48px">
+            <div style="margin-left: 68%">
+              <div style="position: absolute; text-align: center; right: 31%; top: 41px " id="progressDiv">
+                <span class="info-box-text">DIAS</span>
+                <span class="info-box-number">{{qtdDiasConcluido}}</span>
               </div>
-              <!-- /.box -->
+            </div>
+            <div class="progress bg-green">
+              <div class="progress-bar" style="width: 0%" id="progressPeriodo"></div>
+            </div>
+            <span class="progress-description">
+              {{porcConcluido | percent}} do período completados
+            </span>
+          </div>
+
+          <div class="box-footer boxFooter" style="text-align: center; padding: 0">
+            <div class="col-md-6 col-sm-6 col-xs-12 dataBox">
+              <p>Data Inicial</p>
+              <p style="font-weight: bold; font-size: 140%">{{dataInicial | date: 'dd/MM/yyyy'}}</p>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 dataBox">
+              <p>Data Final {{comAditivo}}</p>
+              <p style="font-weight: bold; font-size: 140%">{{dataFinal | date: 'dd/MM/yyyy'}}</p>
             </div>
           </div>
         </div>
+        <!-- /.box -->
+      </div>
+    </div>
+  </div>
 
-        <div class="col-md-8 col-sm-8 col-xs-12">
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="box box-gray">
-                <div class="box-header with-border bg-gray" style="text-align: center">
-                  <h3 class="box-title">Totais</h3>
-                </div>
-                <div class="box-body bg-gray-light">
-                  <canvas id="pieChart" style="height:250px"></canvas>
-                </div>
-                <div class="box-footer bg-gray">
-
-                </div>
-              </div>
-            </div>
+  <div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="box box-gray">
+          <div class="box-header with-border bg-gray" style="text-align: center">
+            <h3 class="box-title">Totais</h3>
           </div>
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="row">
-                    <div class="pull-right" style="margin-right: 16px">
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                          </label>
-                          <span>Realizado</span>
-                    </div>
-                  </div>
-              <div class="row">
-                <div class="pull-right" style="margin-right: 16px">
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                      </label>
-                      <span>A Realizar</span>
-                </div>
-              </div>
-            </div>
+          <div class="box-body bg-gray-light">
+            <canvas baseChart [datasets]="dsChartValores" [labels]="lbChartValores" [options]="optChartValores"
+              [legend]="lgChartValores" [chartType]="ctChartValores">
+            </canvas>
+          </div>
+          <div class="box-footer bg-gray">
+
           </div>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="pull-right" style="margin-right: 16px">
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="chkRealizado">
+              <span class="slider round"></span>
+            </label>
+            <span>Realizado</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="pull-right" style="margin-right: 16px">
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="chkARealizar">
+              <span class="slider round"></span>
+            </label>
+            <span>A Realizar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
