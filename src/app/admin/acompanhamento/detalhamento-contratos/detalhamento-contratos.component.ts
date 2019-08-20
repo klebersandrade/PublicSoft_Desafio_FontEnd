@@ -98,13 +98,13 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
 
 
       if (this.filtro.valoresFiltroInicial != null && this.filtro.valoresFiltroInicial > 0) {
-        if (this.filtro.valoresFiltroInicial < dado.valorInicial + dado.valorAditivo) {
+        if (this.filtro.valoresFiltroInicial < dado.valorInicial) {
           return false;
         }
       }
 
       if (this.filtro.valoresFiltroFinal != null && this.filtro.valoresFiltroFinal > 0) {
-        if (this.filtro.valoresFiltroFinal > dado.valorInicial + dado.valorAditivo) {
+        if (this.filtro.valoresFiltroFinal > dado.valorInicial) {
           return false;
         }
       }
@@ -114,6 +114,9 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
 
     this.dtOptions = {
       ajax: 'assets/contratos.json',
+      language: {
+        url: 'assets/datatables_language.json'
+      },
       columns: [{
         title: '#',
         data: 'codigo'
@@ -127,8 +130,24 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
         title: 'Número Licitação',
         data: 'licitacao'
       }, {
-        title: 'Modalidade',
+        title: 'Modalidade Licitação',
         data: 'modalidade'
+      }, {
+        title: 'Tipo de Contrato',
+        data: 'tipo'
+      }, {
+        title: 'Objeto Contrato',
+        data: 'objeto'
+      }, {
+        title: 'Favorecido',
+        data: 'favorecido'
+      }, {
+        title: 'Valor Inicial',
+        data: 'valorInicial',
+        render: (data, type, row, meta) => {
+          return parseFloat(data).toLocaleString();
+        },
+        className: 'dt-body-right'
       }]
     };
     this.subscriptionFiltro = this.contratoService.filtro.subscribe(
