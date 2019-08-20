@@ -15,7 +15,7 @@ export class ContratoService {
   }
 
   getContratos() {
-    return this.http.get<Contrato[]>(this.contratosUrl);
+    return this.http.get<any>(this.contratosUrl);
   }
 
 

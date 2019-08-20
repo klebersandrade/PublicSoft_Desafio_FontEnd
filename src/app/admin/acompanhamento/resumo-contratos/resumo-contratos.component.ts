@@ -38,7 +38,7 @@ export class ResumoContratosComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.contratoService.getContratos().subscribe(
       (retorno) => {
-        this.GetTotais(retorno);
+        this.GetTotais(retorno.data);
       }
     );
   }

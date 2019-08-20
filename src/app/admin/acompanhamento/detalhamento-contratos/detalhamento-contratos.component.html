@@ -12,20 +12,20 @@
           </div>
       </div>
       <div class="box-body">        
-        <table id="dtContratos" class="table table-bordered table-striped">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="dtContratos" class="table table-bordered table-striped">
           <thead>
             <tr>
               <th>#</th>
               <th>Código</th>
               <th>Número Contrato</th>
               <th>Número Licitação</th>
-              <th>Modalidade Licitação</th>
+              <!-- <th>Modalidade Licitação</th>
               <th>Tipo de Contrato</th>
               <th>Objeto Contrato</th>
-              <th>Favorecido</th>
+              <th>Favorecido</th> -->
             </tr>
           </thead>
-          <tbody>
+    <!--       <tbody>
             <tr *ngFor="let contrato of contratos; let i = index">
               <td>{{(i+1).toString().padStart(4, '0')}}</td>
               <td>{{contrato.codigo.toString().padStart(4, '0')}}</td>
@@ -37,7 +37,7 @@
               <td>{{contrato.favorecido}}</td>
             </tr>
             
-          </tbody>
+          </tbody> -->
         </table>
       </div>
       <div class="box-footer">

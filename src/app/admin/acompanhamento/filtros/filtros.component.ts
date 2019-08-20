@@ -65,22 +65,24 @@ export class FiltrosComponent implements OnInit {
       datasFiltroInicial: this.datasFiltroInicial,
       datasFiltroFinal: this.datasFiltroFinal,
       situacaoVigente: this.situacaoVigente,
-      situacaoVencimento: this.situacaoVigente,
+      situacaoVencimento: this.situacaoVencimento,
     });
   }
 
   inicializa() {
     this.tipo = 0;
-    this.valorFiltro = '';
+    this.valorFiltro = '0';
     this.situacao = 0;
     this.valoresFiltroInicial = 0.00;
     this.valoresFiltroFinal = 0.00;
     this.datasFiltroInicial = '';
     this.datasFiltroFinal = '';
     this.situacaoVigente = '';
-    this.situacaoVencimento = '';
+    this.situacaoVencimento = '0';
     $('#datasFiltroInicial').val('');
     $('#datasFiltroFinal').val('');
+    $('#situacaoVigente').val('');
+    this.contratoService.setFiltro(null);
   }
 
   limpar() {

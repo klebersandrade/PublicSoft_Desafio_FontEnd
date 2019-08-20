@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { DataTablesModule } from 'angular-datatables';
+
 import { AcompanhamentoComponent } from './acompanhamento/acompanhamento.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ResumoContratosComponent } from './acompanhamento/resumo-contratos/resumo-contratos.component';
@@ -26,7 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     AdminRoutingModule,
     CurrencyMaskModule,
-    NgbModule
+    NgbModule,
+    DataTablesModule
   ]
 })
 export class AdminModule { }
