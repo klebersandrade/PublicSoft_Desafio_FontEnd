@@ -38,7 +38,7 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
       const dado: Contrato = settings.json.data[dataIndex];
       switch (this.filtro.tipo.toString()) {
         case '1':
-          if (dado.codigo !== parseInt(this.filtro.valorFiltro, 10)) {
+          if (dado.numero !== parseInt(this.filtro.valorFiltro, 10)) {
             return false;
           }
           break;
@@ -55,7 +55,8 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
           if (this.filtro.situacaoVigente != null && this.filtro.situacaoVigente !== '') {
             const dtContratoFinal = moment(dado.dataFinal);
             const dtFiltroVigente = moment(this.filtro.situacaoVigente);
-            if (dtContratoFinal.diff(dtFiltroVigente, 'days') > 0) {
+            const dtAtual = moment();
+            if (dtContratoFinal.diff(dtFiltroVigente, 'days') > 0 && dtAtual.diff(dtContratoFinal, 'days') < 0) {
               return false;
             }
           }

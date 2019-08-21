@@ -43,13 +43,15 @@
             </span>
           </div>
 
-          <div class="box-footer boxFooter" style="text-align: center; padding: 0">
-            <div class="col-md-6 col-sm-6 col-xs-12 dataBox">
+          <div class="box-footer boxFooter" style="text-align: center; padding: 0; line-height: 13px">
+            <div class="col-md-6 col-sm-6 col-xs-12 dataBox" style="margin: 0;">
               <p>Data Inicial</p>
+              <p>{{'&#160;'}}</p>
               <p style="font-weight: bold; font-size: 140%">{{dataInicial | date: 'dd/MM/yyyy'}}</p>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 dataBox">
-              <p>Data Final {{comAditivo}}</p>
+            <div class="col-md-6 col-sm-6 col-xs-12 dataBox" style="margin: 0;">
+              <p>Data Final</p>
+              <p>{{comAditivo}}</p>
               <p style="font-weight: bold; font-size: 140%">{{dataFinal | date: 'dd/MM/yyyy'}}</p>
             </div>
           </div>
@@ -82,7 +84,7 @@
         <div class="row">
           <div class="pull-right" style="margin-right: 16px">
             <label class="switch">
-              <input type="checkbox" [(ngModel)]="chkRealizado">
+              <input type="checkbox" [(ngModel)]="chkRealizado" (change)="chkRealizadoMudou()">
               <span class="slider round"></span>
             </label>
             <span>Realizado</span>
@@ -91,7 +93,7 @@
         <div class="row">
           <div class="pull-right" style="margin-right: 16px">
             <label class="switch">
-              <input type="checkbox" [(ngModel)]="chkARealizar">
+              <input type="checkbox" [(ngModel)]="chkARealizar" (change)="chkARealizarMudou()">
               <span class="slider round"></span>
             </label>
             <span>A Realizar</span>
