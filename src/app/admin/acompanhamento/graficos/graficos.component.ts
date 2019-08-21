@@ -239,8 +239,14 @@ export class GraficosComponent implements OnInit, OnDestroy {
 
       this.dataInicial = periodos.minDate;
       this.dataFinal = periodos.maxDate;
-      $('#progressPeriodo').css('width', parseInt((this.porcConcluido * 100).toString(), 10) + '%');
-      $('#progressDiv').css('right', parseInt((105 - (this.porcConcluido * 100)).toString(), 10) + '%');
+
+      let porcDiv = parseInt((this.porcConcluido * 100).toString(), 10);
+      if (porcDiv > 100) {
+        porcDiv = 100;
+      }
+
+      $('#progressPeriodo').css('width', porcDiv + '%');
+      $('#progressDiv').css('right', parseInt((105 - porcDiv).toString(), 10) + '%');
 
       let valorEmpenhado = getSumContratos(this.contratos, 'valorEmpenhado');
       let valorAEmpenhar = getSumContratos(this.contratos, 'valorAEmpenhar');
@@ -289,9 +295,14 @@ export class GraficosComponent implements OnInit, OnDestroy {
       this.qtdDiasConcluido = difDateAtual;
 
       this.dataInicial = contrato.dataInicial;
-      this.dataFinal = contrato.dataInicial;
-      $('#progressPeriodo').css('width', parseInt((this.porcConcluido * 100).toString(), 10) + '%');
-      $('#progressDiv').css('right', parseInt((105 - (this.porcConcluido * 100)).toString(), 10) + '%');
+      this.dataFinal = contrato.dataFinal;
+      let porcDiv = parseInt((this.porcConcluido * 100).toString(), 10);
+      if (porcDiv > 100) {
+        porcDiv = 100;
+        this.porcConcluido = 1;
+      }
+      $('#progressPeriodo').css('width', porcDiv + '%');
+      $('#progressDiv').css('right', parseInt((105 - porcDiv).toString(), 10) + '%');
 
 
       let valorEmpenhado = contrato.valorEmpenhado;

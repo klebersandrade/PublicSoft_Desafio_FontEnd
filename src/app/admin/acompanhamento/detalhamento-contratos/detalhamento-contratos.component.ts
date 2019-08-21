@@ -53,62 +53,95 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
       switch (this.filtro.situacao.toString()) {
         case '1':
           if (this.filtro.situacaoVigente != null && this.filtro.situacaoVigente !== '') {
-            const dtContratoFinal = moment(dado.dataFinal);
-            const dtFiltroVigente = moment(this.filtro.situacaoVigente);
-            const dtAtual = moment();
-            if (dtContratoFinal.diff(dtFiltroVigente, 'days') > 0 && dtAtual.diff(dtContratoFinal, 'days') < 0) {
+            let dtContratoFinal = moment(dado.dataFinal);
+            let dtFiltroVigente = moment(this.filtro.situacaoVigente);
+            let dtAtual = moment(new Date());
+            dtAtual = moment(dtAtual.format('DD/MM/YYYY'), 'DD/MM/YYYY');
+            dtContratoFinal = moment(dtContratoFinal.format('DD/MM/YYYY'), 'DD/MM/YYYY');
+            dtFiltroVigente = moment(dtFiltroVigente.format('DD/MM/YYYY'), 'DD/MM/YYYY');
+
+            const difAtual = dtContratoFinal.diff(dtAtual, 'days');
+            const difFiltro = dtContratoFinal.diff(dtFiltroVigente, 'days');
+            const difData = moment().diff(dtFiltroVigente, 'days');
+
+            if (difFiltro > difData) {
               return false;
             }
+
+            if (difData > difAtual) {
+              return false;
+            }
+            // if (dtContratoFinal.diff(dtFiltroVigente, 'days') >= difData && dtAtual.diff(dtContratoFinal, 'days') <= difData) {
+            //   return false;
+            // }
           }
           break;
         case '2':
           if (this.filtro.situacaoVencimento != null && this.filtro.situacaoVencimento !== '') {
-            const dtContratoFinal = moment(dado.dataFinal);
-            const dtAtual = moment().add(parseInt(this.filtro.situacaoVencimento, 10), 'd');
 
+            let dtContratoFinal = moment(dado.dataFinal);
+            let dtFiltro = moment().add(parseInt(this.filtro.situacaoVencimento, 10), 'days');
+            let dtAtual = moment(new Date());
+            dtAtual = moment(dtAtual.format('DD/MM/YYYY'), 'DD/MM/YYYY');
+            dtContratoFinal = moment(dtContratoFinal.format('DD/MM/YYYY'), 'DD/MM/YYYY');
+            dtFiltro = moment(dtFiltro.format('DD/MM/YYYY'), 'DD/MM/YYYY');
+
+            const difAtual = dtContratoFinal.diff(dtAtual, 'days');
+            const difFiltro = dtContratoFinal.diff(dtFiltro, 'days');
+            const difData = moment().diff(dtFiltro, 'days');
+
+            if (difFiltro > difData) {
+              return false;
+            }
+
+            if (difData > difAtual) {
+              return false;
+            }
             if (dtContratoFinal.diff(dtAtual, 'days') > 0) {
               return false;
             }
           }
           break;
       }
-
-      if (this.filtro.valoresFiltroInicial > 0 && this.filtro.valoresFiltroInicial < dado.valorInicial + dado.valorAditivo) {
-        return false;
+      if (this.filtro.valoresFiltroInicial > 0) {
+        if (this.filtro.valoresFiltroInicial > dado.valorInicial + dado.valorAditivo) {
+          return false;
+        }
       }
-
-      if (this.filtro.valoresFiltroFinal > 0 && this.filtro.valoresFiltroFinal > dado.valorInicial + dado.valorAditivo) {
-        return false;
-      }
-
-      if (this.filtro.datasFiltroInicial != null && this.filtro.datasFiltroInicial !== '') {
-        const dtContratoInicial = moment(dado.dataInicial);
-        const dtFiltroInicial = moment(this.filtro.datasFiltroInicial);
-        if (dtContratoInicial.diff(dtFiltroInicial, 'days') < 0) {
+      if (this.filtro.valoresFiltroFinal > 0) {
+        if (this.filtro.valoresFiltroFinal < dado.valorInicial + dado.valorAditivo) {
           return false;
         }
       }
 
-      if (this.filtro.datasFiltroFinal != null && this.filtro.datasFiltroFinal !== '') {
-        const dtContratoFinal = moment(dado.dataFinal);
-        const dtFiltroFinal = moment(this.filtro.datasFiltroFinal);
-        if (dtContratoFinal.diff(dtFiltroFinal, 'days') < 0) {
-          return false;
-        }
-      }
+      // if (this.filtro.datasFiltroInicial != null && this.filtro.datasFiltroInicial !== '') {
+      //   const dtContratoInicial = moment(dado.dataInicial);
+      //   const dtFiltroInicial = moment(this.filtro.datasFiltroInicial);
+      //   if (dtContratoInicial.diff(dtFiltroInicial, 'days') < 0) {
+      //     return false;
+      //   }
+      // }
+
+      // if (this.filtro.datasFiltroFinal != null && this.filtro.datasFiltroFinal !== '') {
+      //   const dtContratoFinal = moment(dado.dataFinal);
+      //   const dtFiltroFinal = moment(this.filtro.datasFiltroFinal);
+      //   if (dtContratoFinal.diff(dtFiltroFinal, 'days') < 0) {
+      //     return false;
+      //   }
+      // }
 
 
-      if (this.filtro.valoresFiltroInicial != null && this.filtro.valoresFiltroInicial > 0) {
-        if (this.filtro.valoresFiltroInicial < dado.valorInicial) {
-          return false;
-        }
-      }
+      // if (this.filtro.valoresFiltroInicial != null && this.filtro.valoresFiltroInicial > 0) {
+      //   if (this.filtro.valoresFiltroInicial < dado.valorInicial) {
+      //     return false;
+      //   }
+      // }
 
-      if (this.filtro.valoresFiltroFinal != null && this.filtro.valoresFiltroFinal > 0) {
-        if (this.filtro.valoresFiltroFinal > dado.valorInicial) {
-          return false;
-        }
-      }
+      // if (this.filtro.valoresFiltroFinal != null && this.filtro.valoresFiltroFinal > 0) {
+      //   if (this.filtro.valoresFiltroFinal > dado.valorInicial) {
+      //     return false;
+      //   }
+      // }
 
       return true;
     });

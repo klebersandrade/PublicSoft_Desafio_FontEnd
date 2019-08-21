@@ -30,24 +30,26 @@ export class FiltrosComponent implements OnInit {
 
     $('#datasFiltroInicial').datepicker({
       autoclose: true,
-      locale: 'pt-br',
-      format: 'dd/mm/yyyy H:i',
+      format: 'dd/mm/yyyy',
+      language: 'pt-BR'
     });
     $('#datasFiltroInicial').inputmask('99/99/9999', { placeholder: 'dd/mm/aaaa' });
 
     $('#datasFiltroFinal').datepicker({
       autoclose: true,
-      locale: 'pt-br',
-      format: 'dd/mm/yyyy H:i',
+      format: 'dd/mm/yyyy',
+      language: 'pt-BR'
     });
     $('#datasFiltroFinal').inputmask('99/99/9999', { placeholder: 'dd/mm/aaaa' });
 
+    $('#situacaoVigente').inputmask('99/99/9999', { placeholder: 'dd/mm/aaaa' });
+
     $('#situacaoVigente').datepicker({
       autoclose: true,
-      locale: 'pt-br',
-      format: 'dd/mm/yyyy H:i',
+      format: 'dd/mm/yyyy',
+      language: 'pt-BR',
+      startDate: 'today'
     });
-    $('#situacaoVigente').inputmask('99/99/9999', { placeholder: 'dd/mm/aaaa' });
   }
 
 
@@ -61,7 +63,7 @@ export class FiltrosComponent implements OnInit {
       valorFiltro: this.valorFiltro,
       situacao: this.situacao,
       valoresFiltroInicial: this.valoresFiltroInicial,
-      valoresFiltroFinal: this.valoresFiltroInicial,
+      valoresFiltroFinal: this.valoresFiltroFinal,
       datasFiltroInicial: this.datasFiltroInicial,
       datasFiltroFinal: this.datasFiltroFinal,
       situacaoVigente: this.situacaoVigente,
