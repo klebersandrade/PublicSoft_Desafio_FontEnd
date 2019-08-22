@@ -136,9 +136,10 @@ export class GraficosComponent implements OnInit, OnDestroy {
           ctx.textBaseline = 'middle';
           ctx.textAlign = 'left';
           ctx.fillStyle = '#000000';
+          ctx.fontWeight = 'bold';
           ctx.strokeStyle = '#000000';
-          ctx.font = '12pt';
-          // ctx.fillText(label, labelWidth, bar._model.y);
+          ctx.font = 'bold small-caps bold 13pt arial';
+          ctx.fillText(label, labelWidth, bar._model.y);
           ctx.strokeText(label, labelWidth, bar._model.y);
         }));
       }

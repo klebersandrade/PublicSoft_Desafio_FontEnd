@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ContratoService } from 'src/app/services/contrato.service';
 import { Subscription } from 'rxjs';
 import { Contrato } from 'src/app/models/contrato';
@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 
 declare var $: any;
 import * as moment from 'moment';
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-detalhamento-contratos',
@@ -16,6 +17,8 @@ import * as moment from 'moment';
   styleUrls: ['./detalhamento-contratos.component.scss']
 })
 export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy, OnInit {
+  jaFiltrou: boolean;
+  @ViewChild('listaContratos', { static: false }) listaContatos: ElementRef;
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
 
@@ -32,6 +35,10 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
   ngOnInit() {
     // tslint:disable-next-line: no-string-literal
     $.fn['dataTable'].ext.search.push((settings, data, dataIndex) => {
+      // if (this.jaFiltrou) {
+      //   return false;
+      // }
+      // this.jaFiltrou = true;
       if (this.filtro == null) {
         return true;
       }
@@ -60,15 +67,11 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
             dtContratoFinal = moment(dtContratoFinal.format('DD/MM/YYYY'), 'DD/MM/YYYY');
             dtFiltroVigente = moment(dtFiltroVigente.format('DD/MM/YYYY'), 'DD/MM/YYYY');
 
-            const difAtual = dtContratoFinal.diff(dtAtual, 'days');
-            const difFiltro = dtContratoFinal.diff(dtFiltroVigente, 'days');
-            const difData = moment().diff(dtFiltroVigente, 'days');
-
-            if (difFiltro > difData) {
+            if (dtContratoFinal.isBefore(dtAtual)) {
               return false;
             }
 
-            if (difData > difAtual) {
+            if (dtContratoFinal.isAfter(dtFiltroVigente)) {
               return false;
             }
             // if (dtContratoFinal.diff(dtFiltroVigente, 'days') >= difData && dtAtual.diff(dtContratoFinal, 'days') <= difData) {
@@ -86,18 +89,11 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
             dtContratoFinal = moment(dtContratoFinal.format('DD/MM/YYYY'), 'DD/MM/YYYY');
             dtFiltro = moment(dtFiltro.format('DD/MM/YYYY'), 'DD/MM/YYYY');
 
-            const difAtual = dtContratoFinal.diff(dtAtual, 'days');
-            const difFiltro = dtContratoFinal.diff(dtFiltro, 'days');
-            const difData = moment().diff(dtFiltro, 'days');
-
-            if (difFiltro > difData) {
+            if (dtContratoFinal.isBefore(dtAtual)) {
               return false;
             }
 
-            if (difData > difAtual) {
-              return false;
-            }
-            if (dtContratoFinal.diff(dtAtual, 'days') > 0) {
+            if (dtContratoFinal.isAfter(dtFiltro)) {
               return false;
             }
           }
@@ -114,13 +110,17 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
         }
       }
 
-      // if (this.filtro.datasFiltroInicial != null && this.filtro.datasFiltroInicial !== '') {
-      //   const dtContratoInicial = moment(dado.dataInicial);
-      //   const dtFiltroInicial = moment(this.filtro.datasFiltroInicial);
-      //   if (dtContratoInicial.diff(dtFiltroInicial, 'days') < 0) {
-      //     return false;
-      //   }
-      // }
+      if (this.filtro.datasFiltroInicial != null && this.filtro.datasFiltroInicial !== ''
+        && this.filtro.datasFiltroFinal != null && this.filtro.datasFiltroFinal !== '') {
+        const dtContratoInicial = moment(dado.dataInicial);
+        const dtContratoFinal = moment(dado.dataFinal);
+        const dtFiltroInicial = moment(this.filtro.datasFiltroInicial);
+        const dtFiltroFinal = moment(this.filtro.datasFiltroFinal);
+
+        if (!dtContratoInicial.isBetween(dtFiltroInicial, dtFiltroFinal) && !dtContratoFinal.isBetween(dtFiltroInicial, dtFiltroFinal)) {
+          return false;
+        }
+      }
 
       // if (this.filtro.datasFiltroFinal != null && this.filtro.datasFiltroFinal !== '') {
       //   const dtContratoFinal = moment(dado.dataFinal);
@@ -216,6 +216,7 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
     this.subscriptionFiltro = this.contratoService.filtro.subscribe(
       (ft: Filtro) => {
         this.filtro = ft;
+        this.jaFiltrou = false;
         this.filtrar();
       }
     );
@@ -237,5 +238,4 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
       dtInstance.draw();
     });
   }
-
 }
