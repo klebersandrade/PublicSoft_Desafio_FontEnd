@@ -26,11 +26,13 @@
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",
     "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.2.4",
     "moment": "^2.24.0",
     "ng2-charts": "^2.3.0",
     "ng2-currency-mask": "^5.3.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
+    "xlsx": "^0.15.1",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

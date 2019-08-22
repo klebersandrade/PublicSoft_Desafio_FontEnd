@@ -9,7 +9,8 @@ import { Subject } from 'rxjs';
 
 declare var $: any;
 import * as moment from 'moment';
-import * as jsPDF from 'jspdf';
+import { ActivatedRoute } from '@angular/router';
+import { exportTableToCSV, exportTableToXLSX, exportHTMLToPdf } from 'src/app/helpers/helpers';
 
 @Component({
   selector: 'app-detalhamento-contratos',
@@ -18,6 +19,7 @@ import * as jsPDF from 'jspdf';
 })
 export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy, OnInit {
   jaFiltrou: boolean;
+  fullPage: boolean;
   @ViewChild('listaContratos', { static: false }) listaContatos: ElementRef;
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -27,12 +29,19 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
 
   filtro: Filtro;
   subscriptionFiltro: Subscription;
+  subscriptionDataRoute: Subscription;
 
   constructor(
-    private contratoService: ContratoService
+    private contratoService: ContratoService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.subscriptionDataRoute = this.route.data
+      .subscribe((data) => {
+        this.fullPage = data.fullPage;
+      });
+
     // tslint:disable-next-line: no-string-literal
     $.fn['dataTable'].ext.search.push((settings, data, dataIndex) => {
       // if (this.jaFiltrou) {
@@ -236,6 +245,42 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
   filtrar() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.draw();
+      console.log(dtInstance.data()[0]);
     });
+  }
+
+  exportCSV() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      exportTableToCSV(dtInstance.data());
+    });
+  }
+
+  exportXLSX() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      exportTableToXLSX(dtInstance.data());
+    });
+  }
+
+  exportPDF() {
+    // exportHTMLToPdf(this.listaContatos);
+
+    const doc = new jsPDF('p', 'pt');
+    const res = doc.fromHTML(document.getElementById('dtContratos'));
+    const height = doc.internal.pageSize.height;
+    doc.text('text', 50, 50);
+    doc.autoTable(res.columns, res.data, {
+      startY: 200
+    });
+    doc.autoTable(res.columns, res.data, {
+      startY: doc.autoTableEndPosY() + 50
+    });
+    doc.autoTable(res.columns, res.data, {
+      startY: height,
+      afterPageContent: (data) => {
+        doc.setFontSize(20)
+        doc.text('After page content', 50, height - data.settings.margin.bottom - 20);
+      }
+    });
+    doc.save('table.pdf');
   }
 }
