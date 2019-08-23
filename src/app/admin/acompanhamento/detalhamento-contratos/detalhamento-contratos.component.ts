@@ -10,7 +10,10 @@ import { Subject } from 'rxjs';
 declare var $: any;
 import * as moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
-import { exportTableToCSV, exportTableToXLSX, exportHTMLToPdf } from 'src/app/helpers/helpers';
+import {
+  exportTableToCSV, exportTableToXLSX, exportHTMLToPdf, printToPdf, IsFullScreenCurrently,
+  GoOutFullscreen, goInFullscreen
+} from 'src/app/helpers/helpers';
 
 @Component({
   selector: 'app-detalhamento-contratos',
@@ -262,25 +265,23 @@ export class DetalhamentoContratosComponent implements AfterViewInit, OnDestroy,
   }
 
   exportPDF() {
-    // exportHTMLToPdf(this.listaContatos);
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      exportHTMLToPdf(dtInstance.data(), false);
+    });
+  }
 
-    const doc = new jsPDF('p', 'pt');
-    const res = doc.fromHTML(document.getElementById('dtContratos'));
-    const height = doc.internal.pageSize.height;
-    doc.text('text', 50, 50);
-    doc.autoTable(res.columns, res.data, {
-      startY: 200
+  print() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      const file = exportHTMLToPdf(dtInstance.data(), true);
+      printToPdf(file);
     });
-    doc.autoTable(res.columns, res.data, {
-      startY: doc.autoTableEndPosY() + 50
-    });
-    doc.autoTable(res.columns, res.data, {
-      startY: height,
-      afterPageContent: (data) => {
-        doc.setFontSize(20)
-        doc.text('After page content', 50, height - data.settings.margin.bottom - 20);
-      }
-    });
-    doc.save('table.pdf');
+  }
+
+  goToFullScreen() {
+    if (IsFullScreenCurrently()) {
+      GoOutFullscreen();
+    } else {
+      goInFullscreen($('#dtContratos').get(0));
+    }
   }
 }

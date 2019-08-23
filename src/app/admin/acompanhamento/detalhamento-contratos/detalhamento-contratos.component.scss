@@ -1,0 +1,58 @@
+
+/* webkit requires explicit width, height = 100% of sceeen */
+/* webkit also takes margin into account in full screen also - so margin should be removed (otherwise black areas will be seen) */
+#dtContratos:-webkit-full-screen {
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	margin: 0;
+}
+
+.table>tbody>tr:-webkit-full-screen { 
+	height: 20px;
+}
+
+#dtContratos thead:-webkit-full-screen { 
+	background-color: white;
+}
+
+#dtContratos:-moz-full-screen {
+	background-color: white;
+	margin: 0;
+}
+
+.table>tbody>tr:-moz-full-screen { 
+	height: 20px;
+}
+
+#dtContratos thead:-moz-full-screen { 
+	background-color: white;
+}
+
+#dtContratos:-ms-fullscreen {
+	background-color: white;
+	margin: 0;
+}
+
+.table>tbody>tr:-ms-fullscreen { 
+	height: 20px;
+}
+
+#dtContratos thead:-ms-fullscreen { 
+	background-color: white;
+}
+
+/* W3C proposal that will eventually come in all browsers */
+#dtContratos:fullscreen { 
+	background-color: white;
+	margin: 0;
+}
+
+#dtContratos thead:fullscreen { 
+	background-color: white;
+}
+
+.table>tbody>tr:fullscreen { 
+	height: 20px;
+}
+

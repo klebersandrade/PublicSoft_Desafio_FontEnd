@@ -5,11 +5,11 @@
       <div class="box-header with-border">
         <h3 class="box-title">DETALHAMENTO DOS CONTRATOS</h3>
         <div class="row pull-right" style="margin-bottom: 2px" *ngIf="!fullPage">
-          <a class="btn btn-light" [routerLink]="['/detalheFullPage']" target="_blank"><i class="fa fa-window-maximize fa-2x"></i></a>
+          <a class="btn btn-light" (click)="goToFullScreen()"><i class="fa fa-window-maximize fa-2x"></i></a>
           <a class="btn btn-light" (click)="exportCSV()"><i class="fa fa-file-text-o fa-2x"></i></a>
           <a class="btn btn-light" (click)="exportXLSX()"><i class="fa fa-file-excel-o fa-2x"></i></a>
           <a class="btn btn-light" (click)="exportPDF()"><i class="fa fa-file-pdf-o fa-2x"></i></a>
-          <a class="btn btn-light"><i class="fa fa-print fa-2x"></i></a>
+          <a class="btn btn-light" (click)="print()"><i class="fa fa-print fa-2x"></i></a>
         </div>
       </div>
       <div class="box-body">
