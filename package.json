@@ -25,7 +25,7 @@
     "chartjs-plugin-labels": "^1.1.0",
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.2.4",
     "moment": "^2.24.0",
     "ng2-charts": "^2.3.0",
