@@ -23,7 +23,7 @@
     "angular-datatables": "^8.0.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-labels": "^1.1.0",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.11.3",
     "datatables.net-dt": "^1.10.19",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.2.4",
